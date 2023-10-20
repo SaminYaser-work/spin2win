@@ -1,0 +1,19 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.spinner {
+  position: relative;
+}
+
+.pointer {
+  position: absolute;
+  right: 0%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+}
