@@ -23,6 +23,7 @@ export default function NameInput({ setNames }: NameInputProps) {
                     borderRadius: "5px",
                     lineHeight: "1.5",
                     fontFamily: "sans-serif",
+                    resize: "none"
                 }}
             />
         </div>

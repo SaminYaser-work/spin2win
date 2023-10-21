@@ -1,10 +1,10 @@
-import { ElementRef, useEffect, useMemo, useRef, useState } from "react";
+import {ElementRef, useEffect, useMemo, useRef, useState} from "react";
 
 const outerDiameter = 500;
 const degtorad = Math.PI / 180;
 const halfOuterDiameter = outerDiameter / 2;
 
-function getSectorPath(a1: number, a2: number) {
+function getSlicePath(a1: number, a2: number) {
     const x = outerDiameter / 2;
     const cr = halfOuterDiameter - 5;
     const cx1 = Math.cos(degtorad * a2) * cr + x;
@@ -57,7 +57,7 @@ interface SpinnerProps {
     handleWinner: (speed: number) => void;
 }
 
-export default function Spinner({ names, handleWinner }: SpinnerProps) {
+export default function Spinner({names, handleWinner}: SpinnerProps) {
     const slices = useMemo(() => {
         return names.map((_, index) => {
             const span = 360 / names.length;
@@ -67,7 +67,7 @@ export default function Spinner({ names, handleWinner }: SpinnerProps) {
                 <path
                     key={index}
                     id={`p${index}`}
-                    d={getSectorPath(a1, a2)}
+                    d={getSlicePath(a1, a2)}
                     stroke="white"
                     strokeWidth="2"
                     fill={getColor(index)}
@@ -104,6 +104,7 @@ export default function Spinner({ names, handleWinner }: SpinnerProps) {
     const deaccDelta = getRandomNumber(1, 5);
     const maintainSpeed = getRandomNumber(10, 20);
     const circleRef = useRef<ElementRef<"svg">>(null);
+    const smallCircleRef = useRef<ElementRef<"svg">>(null);
     const [start, setStart] = useState(false);
     const [speed, setSpeed] = useState(0.5);
     const [increasing, setIncreasing] = useState(true);
@@ -179,17 +180,10 @@ export default function Spinner({ names, handleWinner }: SpinnerProps) {
                     {slices.map((slice) => slice)}
                     {slicesLabels.map((labels) => labels)}
                 </svg>
-                <div className="pointer">
-                    <svg
-                        height="100"
-                        width="100"
-                        fill="white"
-                        stroke="black"
-                        strokeWidth={3}
-                    >
-                        <polygon points="0,50 50,25 50,75" />
-                    </svg>
-                </div>
+                <svg ref={smallCircleRef} className={"smallCircle"} height="100" width="100">
+                    <circle cx="50" cy="50" r="40" stroke={"white"} fill="white"/>
+                </svg>
+                <div className={"pointer"} />
             </div>
             <button
                 type="button"
